@@ -11,6 +11,7 @@ namespace MVC5Course.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Client
@@ -23,19 +24,25 @@ namespace MVC5Course.Models
     
         public int ClientId { get; set; }
 
-        [Required]
-        [StringLength(10,ErrorMessage ="FitstName 最大不可超過10個字元")]
+        [Required]    
+        [DisplayName("名")]    
+        [StringLength(10,ErrorMessage ="{0}最大不可超過{1}個字元")]
         public string FirstName { get; set; }
         [Required]
         [StringLength(10)]
+        [DisplayName("中間名")]
         public string MiddleName { get; set; }
         [Required]
         [StringLength(10)]
+        [DisplayName("姓")]
         public string LastName { get; set; }
         [Required]
         [RegularExpression("[M|F]",ErrorMessage ="只能輸入M或F")]
+        [DisplayName("性別")]
         public string Gender { get; set; }
+        [DisplayName("生日")]
         public Nullable<System.DateTime> DateOfBirth { get; set; }
+        [DisplayName("信用評等")]
         public Nullable<double> CreditRating { get; set; }
         public string XCode { get; set; }
         public Nullable<int> OccupationId { get; set; }
