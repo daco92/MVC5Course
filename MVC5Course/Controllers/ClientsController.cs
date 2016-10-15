@@ -17,7 +17,7 @@ namespace MVC5Course.Controllers
         // GET: Clients
         public ActionResult Index(string search)
         {
-            var client = db.Client.Include(c => c.Occupation).Take(10);
+            var client = db.Client.OrderByDescending(p => p.ClientId).Take(10);
             if (!string.IsNullOrEmpty(search))
             {
                 client = db.Client.Where(c => c.FirstName.Contains(search));
@@ -41,6 +41,7 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients/Create
+        [ChildActionOnly]
         public ActionResult Create()
         {
             ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName");
