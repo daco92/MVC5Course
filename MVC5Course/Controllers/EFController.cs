@@ -66,9 +66,7 @@ namespace MVC5Course.Controllers
                     {
                         throw new DbEntityValidationException(item.PropertyName + "發生錯誤:" + item.ErrorMessage);
                     }
-
                 }
-
 
                 throw;
             }
@@ -87,8 +85,13 @@ namespace MVC5Course.Controllers
             }
             db.SaveChanges();
 
-           
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ViewLoad()
+        {
+            var data = db.vw_ClientContribution.Take(10);
+            return View(data);
         }
     }
 }
