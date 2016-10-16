@@ -36,6 +36,7 @@ namespace MVC5Course.Controllers
         public ActionResult Delete(int id)
         {
             var model = db.Product.Find(id);
+            db.OrderLine.RemoveRange(model.OrderLine);
             db.Product.Remove(model);
             db.SaveChanges();
             return RedirectToAction("Index");
