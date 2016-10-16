@@ -85,6 +85,7 @@ namespace MVC5Course.Controllers
                     item.Price = item.Price * 1.2m;
                 }
             }
+            db.SaveChanges();
 
            
             return RedirectToAction("Index");
