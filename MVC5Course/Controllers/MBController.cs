@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MVC5Course.Controllers
 {
-    public class MBController : Controller
+    public class MBController : BaseController
     {
         // GET: MB
         public ActionResult Index()
@@ -45,13 +45,39 @@ namespace MVC5Course.Controllers
             }
             return View();
         }
-
-
         
         public ActionResult ActionResult()
         {
 
             return View();
         }
+
+
+        public ActionResult ProductList()
+        {
+            var data = db.Product.Take(10).ToList();
+            return View(data);
+        }
+
+        public ActionResult BatchUpdate(List<ProductBatchUpdateViewModel> items)
+        {
+            if(ModelState.IsValid)
+            {
+                foreach (var viewitem in items)
+                {
+                    var model = db.Product.Find(viewitem.ProductId);
+                    model.ProductName = viewitem.ProductName;
+                    model.Stock = viewitem.Stock;
+                    model.Price = viewitem.Price;
+                    model.Active = viewitem.Active;
+                }
+                db.SaveChanges();
+
+                return RedirectToAction("ProductList");
+            }
+
+            return View();
+        }
+
     }
 }
