@@ -6,13 +6,13 @@ using System.Web.Mvc;
 
 namespace MVC5Course.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         private ProductRepository repo = RepositoryHelper.GetProductRepository();
         //private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        [Route("Prod/ListAll")]
+        //[Route("Prod/ListAll")]
         public ActionResult Index()
         {
             return View(repo.Get取前n筆資料(10).ToList());
