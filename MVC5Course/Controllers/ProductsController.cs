@@ -12,6 +12,7 @@ namespace MVC5Course.Controllers
         //private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
+        [Route("Prod/ListAll")]
         public ActionResult Index()
         {
             return View(repo.Get取前n筆資料(10).ToList());
