@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using MVC5Course.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
     public class ProductsController : Controller
     {
-        ProductRepository repo = RepositoryHelper.GetProductRepository();
+        private ProductRepository repo = RepositoryHelper.GetProductRepository();
         //private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
         public ActionResult Index()
         {
-
-            return View(repo.All().Take(10).ToList());
+            return View(repo.Get取前n筆資料(10).ToList());
         }
 
         // GET: Products/Details/5
@@ -29,7 +24,7 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product =repo.Find(id.Value);
+            Product product = repo.Find(id.Value);
             if (product == null)
             {
                 return HttpNotFound();
@@ -44,7 +39,7 @@ namespace MVC5Course.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -76,7 +71,7 @@ namespace MVC5Course.Controllers
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
