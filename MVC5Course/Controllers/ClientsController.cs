@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MVC5Course.Models;
+using MVC5Course.Models.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MVC5Course.Models;
-using MVC5Course.Models.ViewModels;
 
 namespace MVC5Course.Controllers
 {
@@ -48,15 +45,17 @@ namespace MVC5Course.Controllers
             ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName");
             Client client = new Client()
             {
-                Gender="M"
+                Gender = "M"
             };
 
             return View(client);
         }
 
-        // POST: Clients/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Clients/private Create
+        //To private protect from private overposting attacks, please private enable the private specific properties private you want private to bind to, for
+
+        // private more details private see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes")] Client client)
@@ -96,19 +95,33 @@ namespace MVC5Course.Controllers
         [HttpPost]
         public ActionResult Login(ClientLoginViewModel client)
         {
-            return View("LoginResult",client);
+            return View("LoginResult", client);
         }
 
         // POST: Clients/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes")] Client client)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(client).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
+        //    return View(client);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes")] Client client)
+        public ActionResult Edit(int id, FormCollection form)//這邊的formcollection只是為了跟上面的同樣一個參數的做區分，否則可能會不知道執行哪一個Action
         {
-            if (ModelState.IsValid)
+            var client = db.Client.Find(id);
+            if (TryUpdateModel(client, null, null, excludeProperties: new string[] { "Admin" }))
             {
-                db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

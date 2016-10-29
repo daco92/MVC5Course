@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MVC5Course.Controllers
 {
+    [LocalAccessOnly]
     public class ProductsController : BaseController
     {
         private ProductRepository repo = RepositoryHelper.GetProductRepository();
@@ -13,6 +14,7 @@ namespace MVC5Course.Controllers
 
         // GET: Products
         //[Route("Prod/ListAll")]
+        [Share_ViewData共用資料]
         public ActionResult Index()
         {
             return View(repo.Get取前n筆資料(10).ToList());
